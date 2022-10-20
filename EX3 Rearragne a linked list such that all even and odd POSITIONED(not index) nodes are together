@@ -1,0 +1,104 @@
+package linked_list;
+
+/**
+ * 
+ * @author Sandeep Srivastava
+ * 
+ * Rearragne a linked list such that all even and odd POSITIONED(not index) nodes are together
+ *
+ *Input:   1->2->3->4
+ *Output:  1->3->2->4
+ *
+ *Input:   10->22->30->43->56->70
+ *Output:  10->30->56->22->43->70
+ *
+ */
+/*
+ * Some Important cases that must need to be handled:
+ * 
+ * (1) Empty Linked List
+ * (2) A Linked List with only one nodes 
+ * (3) A Linked List with only two nodes
+ * (4) A Linked List with odd number of nodes
+ * (5) A Linked List with even number of nodes
+ * 
+ */
+public class Ex3 {
+
+	//Linked List Node
+	static class Node{
+		int data;
+		Node next;
+	}
+	
+	// A Utility function to create node
+	static Node newNode(int key) {
+		Node temp = new Node();
+		temp.data = key;
+		temp.next = null;
+		return temp;
+	}
+	
+	//A Utility function to print the list
+	private static void printLinkedList(Node node) {
+		while(node !=null){
+			System.out.print(node.data+ "->");
+			node = node.next; 
+		}
+		System.out.println("NULL");
+	}
+	
+
+	private static Node rearrangeLinkedList(Node head) {
+		// Corner case
+		if (head == null)
+			return null;
+
+		// Initialize first even and odd node of list
+		Node odd = head;       // data:1 next:null
+		Node even = head.next; // data:2 next:null
+		// Remembering the first node of the even list so that we can connect the even list at the end of odd list
+		Node evenFirst = even; // data:2 next:null
+		
+		      while(1==1) {
+                       if(odd == null || even == null || even.next == null) {
+            	                                       //head.next.next.next.next.next = null // data:null 
+            	               odd.next = evenFirst; //data:2 next:null
+                        break;
+		               }
+              
+              //conneting odd nodes 
+              odd.next = even.next; // data:3 next:null  //data:5 next:null
+              odd = even.next;      // data:3 next:null, We will use it during built even list //data:5 next:null
+              
+       // After head.next.next.next.data:4  //If there are NO more even nodes after current odd. //head.next.next.next.next.next.data =null
+              if(odd.next == null) {//odd.next= head.next.next.next.next.next ==null
+            	  even.next = null; //   data:0 next:null
+            	  odd.next = evenFirst;  //head.next.data:2 head.next.next:null// 1->3->5-> data:2 next:null
+            	  break;
+              }
+              
+              //Connecting even nodes 
+              even.next = odd.next;  // data:4 next:null
+              even = odd.next;       // data:4 next:null
+		}
+	    return head;
+	}
+	
+	public static void main(String[] args) {
+		Node head = newNode(1);                   //head.data:1                       head.next:null
+		head.next = newNode(2);                   //head.next.data:2                  head.next.next:null
+		head.next.next = newNode(3);              //head.next.next.data:3             head.next.next.next:null
+		head.next.next.next = newNode(4);         //head.next.next.next.data:4        head.next.next.next.next:null
+		head.next.next.next.next = newNode(5);    //head.next.next.next.next.data:5   head.next.next.next.next.next:null
+		
+		System.out.println("Given Linked List");
+		printLinkedList(head);
+		
+		head =rearrangeLinkedList(head);
+		
+		System.out.println("Rearranged Linked List");
+		printLinkedList(head);
+		
+	}
+}
