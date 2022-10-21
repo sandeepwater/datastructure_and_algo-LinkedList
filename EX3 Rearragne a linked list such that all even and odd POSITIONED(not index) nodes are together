@@ -23,6 +23,12 @@ package linked_list;
  * (5) A Linked List with even number of nodes
  * 
  */
+/**
+ * 
+ * Time complexity: O(n) since using a loop to traverse the list, where n is the size of the linked list
+ * Auxiliary Space: O(1)
+ *
+ */
 public class Ex3 {
 
 	//Linked List Node
